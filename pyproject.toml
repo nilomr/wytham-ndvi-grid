@@ -3,17 +3,17 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "greti"
+name = "src"
 description = "A large database of songs from a wild population of great tits"
 version = "0.0.1"
 authors = [{ name = "Nilo M. Recalde", email = "nilomerinorecalde@gmail.com" }]
 classifiers = [
     'License :: OSI Approved :: MIT License',
     'Development Status :: 4 - Beta',
-    'Programming Language :: Python :: 3.8',
     'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 readme = "README.md"
 license = { file = "LICENSE" }
 dependencies = ["pyrootutils", "pykanto", 'astral == 3.2', 'geopandas']
