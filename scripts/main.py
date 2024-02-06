@@ -3,7 +3,6 @@ import threading
 import time
 from pathlib import Path
 
-import geopandas
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,6 +17,8 @@ from shapely.geometry import Point
 from tqdm import tqdm
 
 rioxarray.set_options(export_grid_mapping=False)
+
+import pyvips # on ubuntu, also sudo apt install libvips
 
 # ──── FUNCTIONS AND CLASSES ──────────────────────────────────────────────────
 
@@ -99,8 +100,14 @@ xds = rioxarray.open_rasterio(
     masked=True,
 )
 
+# Open the raster file with pyvips
+xds = pyvips.Image.new_from_file(str(file), access="sequential")
+
+xds = np.asarray(xds)
 # get the lower third of the raster file
 # xds = xds.isel(y=slice(xds.shape[1] // 3, -1))
+
+xds.shape
 
 
 # Print some info about the raster file
@@ -150,24 +157,35 @@ slice_size = xds.shape[1] // total_slices
 for i in range(0, xds.shape[1], slice_size):
     slices.append(slice(i, i + slice_size))
 
+sliced_geojsons = []
 
-# xds_ss = xds[:, slices[0], :]
+for s in slices:
+    # get the slice
+    shd = xds[0, s, :].values
+    # get the slice's geojson
+    slice_geojson = zonal_stats(
+        vectors=grid,
+        raster=shd,
+        stats=["mean", "std", "median"],
+        affine=xds.rio.transform(),
+        nodata=np.nan,
+        all_touched=True,
+        geojson_out=True,
+    )
+    sliced_geojsons.append(slice_geojson)
 
-start_time = time.time()
+
 
 sl_stats = zonal_stats(
     vectors=grid,
-    raster=xds[0, :, :].values,
+    raster=xds,
     stats=["mean", "std", "median"],
-    affine=xds.rio.transform(),
-    nodata=np.nan,
+    # affine=xds.rio.transform(),
+    nodata=-1000,
     all_touched=True,
     geojson_out=True,
 )
 
-end_time = time.time()
-execution_time = end_time - start_time
-print(f"Execution time: {execution_time} seconds")
 
 # TODO: append these to the grid, careful not to overwrite existing cells:
 # check that they are empty first

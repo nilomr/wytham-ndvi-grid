@@ -1,0 +1,22 @@
+
+default:
+  path:
+    root: !expr rprojroot::find_rstudio_root_file()
+    data: !expr file.path(rprojroot::find_rstudio_root_file(), "data")
+    stiched_data: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "Stitches")
+    derived_data: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "derived")
+    shp_data: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "shapefiles")
+    metadata: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "metadata")
+    figures: !expr file.path(rprojroot::find_rstudio_root_file(), "reports", "figures")
+    reports: !expr file.path(rprojroot::find_rstudio_root_file(), "reports", "reports")
+    resources: !expr file.path(rprojroot::find_rstudio_root_file(), "resources")
+    source: !expr file.path(rprojroot::find_rstudio_root_file(), "R")
+
+  datum: "epsg:4326"
+
+  ncores: !expr future::availableCores()
+  futureplan: !expr future::plan("multisession", workers = future::availableCores())
+  progress_aes: !expr progressr::handlers("cli")
+  scinot: !expr options(scipen = 999)
+
+
