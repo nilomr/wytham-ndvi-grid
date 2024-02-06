@@ -4,7 +4,7 @@ default:
     root: !expr rprojroot::find_rstudio_root_file()
     data: !expr file.path(rprojroot::find_rstudio_root_file(), "data")
     stiched_data: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "Stitches")
-    derived_data: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "derived")
+    derived_data: !expr file.path(rprojroot::find_rstudio_root_file(), "data","derived", "lowres")
     shp_data: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "shapefiles")
     metadata: !expr file.path(rprojroot::find_rstudio_root_file(), "data", "metadata")
     figures: !expr file.path(rprojroot::find_rstudio_root_file(), "reports", "figures")
