@@ -12,11 +12,13 @@
 #'     titheme()
 #'
 #' @export
-titheme <- function() {
+titheme <- function(aspect_ratio = NULL) {
     ggplot2::theme(
+        # set aspect ratio
+        aspect.ratio = aspect_ratio,
         text = ggplot2::element_text(
             size = 12, family = "Roboto Condensed",
-            colour = "#272727"
+            colour = "#e6e6e6"
         ),
         panel.grid.minor = ggplot2::element_blank(),
         panel.grid.major.x = ggplot2::element_blank(),
@@ -26,11 +28,10 @@ titheme <- function() {
             fill = "transparent", colour = NA
         ),
         panel.background = ggplot2::element_rect(
-            fill = "transparent", colour = NA
+            fill = "#272727", colour = NA
         ),
-        aspect.ratio = .8,
         panel.grid.major.y = ggplot2::element_line(
-            color = "#e2e2e2",
+            color = "#818181",
             linewidth = 0.5,
             linetype = 1
         ),
@@ -46,7 +47,8 @@ titheme <- function() {
             fill = "transparent", colour = NA
         ),
         strip.text = ggplot2::element_text(
-            size = 12, margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 10)
+            size = 12, color = "#e6e6e6",
+            margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 10)
         ),
         plot.subtitle = ggplot2::element_text(
             margin = ggplot2::margin(t = 0, r = 0, b = 5, l = 0)
@@ -61,11 +63,12 @@ titheme <- function() {
         legend.spacing.y = ggplot2::unit(0.3, "lines"),
         # title to roboto condensed, size 12
         plot.title = ggplot2::element_text(
-            size = 13, face = "bold", colour = "black",
+            size = 13, face = "bold", colour = "#e6e6e6",
             margin = ggplot2::margin(t = 0, r = 0, b = 5, l = 0)
         ),
         plot.background = ggplot2::element_rect(
-            fill = "#f3f3f3", colour = NA
-        )
+            fill = "#272727", colour = NA
+        ),
+        axis.text = ggplot2::element_text(color = "#e6e6e6")
     )
 }
