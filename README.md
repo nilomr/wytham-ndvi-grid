@@ -1,57 +1,30 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![R version](https://img.shields.io/badge/R-4.2.1-blue.svg)](https://cran.r-project.org/)
 
-<br>
-<div align='center'>
-
-<a href="https://nilomr.github.io/pykanto">
-    <img src="https://raw.githubusercontent.com/nilomr/great-tit-hits/main/docs/img/greti_cover.jpg" alt="pykanto logo" title="pykanto" width="80%" style="padding-bottom:1em !important;" />
-</a>
-
-<br>
-<br>
-
-
-![version](https://img.shields.io/badge/package_version-0.1.0-orange)
-![PyPI status](https://img.shields.io/pypi/status/ansicolortags.svg)
-![license](https://img.shields.io/github/license/mashape/apistatus.svg)
-![Python 3.8](https://img.shields.io/badge/python->=3.8-yellow.svg)
-
-This is a repository containing code and data to recreate the **Wytham Great Tit Song Dataset** dataset
-
-[Website](https://nilomr.github.io/great-tit-hits/) •
-[Article](https://www.biorxiv.org/content/10.1101/2023.07.03.547484v1.full.pdf) • [Data](https://osf.io/n8ac9/)
-# ㅤ
-</div>
-
-### Documentation
-
-See either [Pipeline README on
-GH](https://github.com/nilomr/great-tit-hits-setup/blob/main/docs/pipeline.md) or [website/docs]([Title](https://nilomr.github.io/great-tit-hits/site/index.html))
-
-<br>
+## Wytham Woods NDVI Analysis
+This project analyzes NDVI (Normalized Difference Vegetation Index) data collected from drone flights over Wytham Woods.
 
 ### Installation
 
-Clone the repository and install the package locally:
-
-```bash
-git clone https://github.com/nilomr/great-tit-hits-setup.git
-cd great-tit-hits-setup
-pip install . # Or pip install -e '.[dev, test, doc]' if you want to play around
+Initialize and restore the renv environment:
+```r
+if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+renv::restore()
 ```
-See the [installation instructions for `pykanto`](https://nilomr.github.io/pykanto/_build/html/contents/installation.html) if you are going to use
-GPUs.
 
-<br>
 
-### License
-The project is licensed under the [MIT license](./LICENSE).
+This will automatically install all required packages with the correct versions as specified in the renv.lock file.
 
-<br>
 
-### Citation
+### Features
+- Processes NDVI raster files from multiple drone flights
+- Creates a hexagonal grid sampling system (50x50m) across the study site
+- Extracts and analyzes NDVI mean and standard deviation values
+- Generates time series visualizations of NDVI changes
+- Produces spatial maps showing NDVI patterns across different flight dates
+- Identifies areas with highest/lowest NDVI values and variability
 
-... coming soon
-
-# ㅤ
-<sub>© Nilo M. Recalde, 2020-present</sub>
-
+### Notes
+- The script automatically filters out data from May 13th, 2023 due to flight issues
+- Analysis focuses on cells with the highest/lowest 5% NDVI values
+- Standard deviation filtering (15%) is used to identify stable high-NDVI areas
